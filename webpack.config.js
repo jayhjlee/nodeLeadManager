@@ -2,6 +2,7 @@ const webpack = require("webpack");
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 
 const inProduction = process.env.NODE_ENV === "production";
 
@@ -35,8 +36,12 @@ module.exports = {
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			title: "React App",
-			template: "src/template/index.html",
+			template: "./src/index.html",
+			filename: "./index.html",
 		}),
+		// new ScriptExtHtmlWebpackPlugin({
+		// 	defaultAttribute: "async",
+		// }),
 	],
 	watch: true,
 	optimization: {
