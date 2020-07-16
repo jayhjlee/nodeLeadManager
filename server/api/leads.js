@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Lead = require("../db/leads");
 
-router.get("/getLeads", async res => {
+router.get("/getLeads", async (req, res) => {
 	try {
 		const allLeads = await Lead.findAll();
 		res.json(allLeads);
