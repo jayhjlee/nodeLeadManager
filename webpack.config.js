@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const inProduction = process.env.NODE_ENV === "production";
 
@@ -29,7 +30,14 @@ module.exports = {
 		hot: true,
 		writeToDisk: true,
 	},
-	plugins: [new webpack.HotModuleReplacementPlugin(), new CleanWebpackPlugin()],
+	plugins: [
+		new webpack.HotModuleReplacementPlugin(),
+		new CleanWebpackPlugin(),
+		new HtmlWebpackPlugin({
+			title: "React App",
+			template: "src/template/index.html",
+		}),
+	],
 	watch: true,
 	optimization: {
 		minimize: inProduction,
