@@ -1,15 +1,15 @@
 const webpack = require("webpack");
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
+// const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const inProduction = process.env.NODE_ENV === "production";
 
 module.exports = {
-	entry: ["@babel/polyfill", "./src/index.js"],
+	context: path.resolve(__dirname, "./src"),
+	entry: ["@babel/polyfill", "./index.js"],
 	output: {
-		path: path.resolve(__dirname, "./dist"),
+		path: path.resolve(__dirname, "./build/static/js"),
 		filename: "bundle.js",
 	},
 	module: {
@@ -34,13 +34,10 @@ module.exports = {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new CleanWebpackPlugin(),
-		new HtmlWebpackPlugin({
-			title: "React App",
-			template: "./src/index.html",
-			filename: "./index.html",
-		}),
-		// new ScriptExtHtmlWebpackPlugin({
-		// 	defaultAttribute: "async",
+		// new HtmlWebpackPlugin({
+		// 	title: "React App",
+		// 	template: "./src/index.html",
+		// 	filename: "./index.html",
 		// }),
 	],
 	watch: true,
