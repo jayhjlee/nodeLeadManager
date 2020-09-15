@@ -2,15 +2,21 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { init } from "../store/actions/home";
 
+import Nav from "./Nav";
+import Leads from "./Leads";
+
 class Home extends Component {
 	componentDidMount() {
 		this.props.init();
 	}
 
 	render() {
+		const { leads } = this.props;
+
 		return (
-			<div>
-				<h1>hello world!</h1>
+			<div className="container">
+				<Nav />
+				<Leads leads={leads} />
 			</div>
 		);
 	}
