@@ -6,19 +6,27 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { store } from "../store";
 
 import Home from "./Home";
+import CreateLead from "./CreateLead";
+import Nav from "./Nav";
 
 class App extends Component {
 	render() {
 		return (
-			<Provider store={store}>
-				<Router>
-					<Switch>
-						<Route path="/">
-							<Home />
-						</Route>
-					</Switch>
-				</Router>
-			</Provider>
+			<div className="container">
+				<Provider store={store}>
+					<Router>
+						<Nav />
+						<Switch>
+							<Route exact path="/">
+								<Home />
+							</Route>
+							<Route path="/create-lead">
+								<CreateLead />
+							</Route>
+						</Switch>
+					</Router>
+				</Provider>
+			</div>
 		);
 	}
 }

@@ -1,4 +1,4 @@
-import { IS_LOADED, GET_LEADS } from "../types/home";
+import { IS_LOADED, GET_LEADS, OPEN_LEAD_FORM } from "../types/home";
 
 const initialState = {
 	isLoaded: false,

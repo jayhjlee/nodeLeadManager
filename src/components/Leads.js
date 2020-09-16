@@ -23,11 +23,21 @@ export default function Leads({ leads }) {
 							<td>{lead.lastName}</td>
 							<td>{lead.email}</td>
 							<td>{lead.createdAt}</td>
-							<td style={{ textAlign: "center" }}>
-								<button className="btn">Search</button>
+							<td
+								style={{
+									textAlign: "right",
+									padding: "0 0 0 0",
+									verticalAlign: "middle",
+								}}>
+								<button className="btn btn-warning">View</button>
 							</td>
-							<td style={{ textAlign: "center" }}>
-								<button className="btn">Create New Lead</button>
+							<td
+								style={{
+									textAlign: "center",
+									padding: "0 0 0 0",
+									verticalAlign: "middle",
+								}}>
+								<button className="btn btn-danger">Delete</button>
 							</td>
 						</tr>
 					))}

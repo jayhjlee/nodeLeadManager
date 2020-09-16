@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IS_LOADED, GET_LEADS } from "../types/home";
+import { IS_LOADED, GET_LEADS, OPEN_LEAD_FORM } from "../types/home";
 
 export const init = () => async dispatch => {
 	try {

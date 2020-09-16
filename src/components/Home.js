@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { init } from "../store/actions/home";
+import { init, createLead } from "../store/actions/home";
 
-import Nav from "./Nav";
 import Leads from "./Leads";
 
 class Home extends Component {
@@ -13,12 +12,7 @@ class Home extends Component {
 	render() {
 		const { leads } = this.props;
 
-		return (
-			<div className="container">
-				<Nav />
-				<Leads leads={leads} />
-			</div>
-		);
+		return <Leads leads={leads} />;
 	}
 }
 
