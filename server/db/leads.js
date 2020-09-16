@@ -21,6 +21,10 @@ const Lead = db.define("leads", {
 		type: Sequelize.TEXT,
 		allowNull: false,
 	},
+	isDelete: {
+		type: Sequelize.BOOLEAN,
+		defaultValue: false,
+	},
 });
 
 module.exports = Lead;

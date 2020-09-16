@@ -4,6 +4,9 @@ const Lead = require("../db/leads");
 router.get("/getLeads", async (req, res) => {
 	try {
 		const allLeads = await Lead.findAll({
+			where: {
+				isDelete: false,
+			},
 			order: [["id", "ASC"]],
 		});
 		res.json(allLeads);
@@ -48,15 +51,18 @@ router.put("/updateLead/:id", async (req, res) => {
 	}
 });
 
-router.delete("/:id", async (req, res) => {
+router.put("/deleteLead/:id", async (req, res) => {
 	try {
-		const deletedLead = await Lead.destroy({
-			where: {
-				id: req.params.id,
-			},
-		});
+		const deletedLead = await Lead.update(
+			{ isDelete: true },
+			{
+				where: {
+					id: req.params.id,
+				},
+			}
+		);
 
-		if (!deletedLead.id) {
+		if (deletedLead.length) {
 			res.json({
 				isSuccess: true,
 			});

@@ -2,11 +2,18 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { init } from "../store/actions/home";
+import { init, deleteLead } from "../store/actions/home";
 
 export class Leads extends Component {
 	componentDidMount() {
 		this.props.init();
+	}
+
+	handleDelete(e) {
+		e.preventDefault();
+		const { id } = e.target;
+
+		this.props.deleteLead(id);
 	}
 
 	render() {
@@ -54,7 +61,12 @@ export class Leads extends Component {
 										padding: "0 0 0 0",
 										verticalAlign: "middle",
 									}}>
-									<button className="btn btn-danger">Delete</button>
+									<button
+										id={lead.id}
+										className="btn btn-danger"
+										onClick={this.handleDelete.bind(this)}>
+										Delete
+									</button>
 								</td>
 							</tr>
 						))}
@@ -76,6 +88,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		init: () => dispatch(init()),
+		deleteLead: leadId => dispatch(deleteLead(leadId)),
 	};
 };
 

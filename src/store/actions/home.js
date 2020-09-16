@@ -1,5 +1,11 @@
 import axios from "axios";
-import { GET_LEADS, CREATE_LEAD, ENABLE_FORM, EDIT_LEAD } from "../types/home";
+import {
+	GET_LEADS,
+	CREATE_LEAD,
+	ENABLE_FORM,
+	EDIT_LEAD,
+	DELETE_LEAD,
+} from "../types/home";
 
 export const init = () => async dispatch => {
 	try {
@@ -7,6 +13,8 @@ export const init = () => async dispatch => {
 		const { data } = res;
 
 		dispatch({ type: GET_LEADS, payload: data });
+		dispatch({ type: ENABLE_FORM, payload: false });
+		dispatch({ type: EDIT_LEAD, payload: false });
 	} catch (err) {
 		console.error(err);
 	}
@@ -35,6 +43,18 @@ export const updateLead = updatedLead => async dispatch => {
 		const { data } = res;
 
 		dispatch({ type: EDIT_LEAD, payload: data.isSuccess });
+	} catch (err) {
+		console.error(err);
+	}
+};
+
+export const deleteLead = leadId => async dispatch => {
+	try {
+		const id = parseInt(leadId);
+
+		await axios.put(`/api/lead/deleteLead/${id}`);
+
+		dispatch({ type: DELETE_LEAD, payload: id });
 	} catch (err) {
 		console.error(err);
 	}

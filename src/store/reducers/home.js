@@ -1,4 +1,10 @@
-import { GET_LEADS, CREATE_LEAD, ENABLE_FORM, EDIT_LEAD } from "../types/home";
+import {
+	GET_LEADS,
+	CREATE_LEAD,
+	ENABLE_FORM,
+	EDIT_LEAD,
+	DELETE_LEAD,
+} from "../types/home";
 
 const initialState = {
 	isLoaded: false,
@@ -29,6 +35,11 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				isLeadUpdated: action.payload,
+			};
+		case DELETE_LEAD:
+			return {
+				...state,
+				leads: state.leads.filter(lead => lead.id !== action.payload),
 			};
 		default:
 			return state;
