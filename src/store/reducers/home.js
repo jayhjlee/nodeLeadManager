@@ -1,18 +1,15 @@
-import { IS_LOADED, GET_LEADS, CREATE_LEAD } from "../types/home";
+import { GET_LEADS, CREATE_LEAD, ENABLE_FORM, EDIT_LEAD } from "../types/home";
 
 const initialState = {
 	isLoaded: false,
 	leads: [],
 	isLeadCreated: false,
+	isLeadUpdated: false,
+	isFormEnabled: false,
 };
 
 export default function (state = initialState, action) {
 	switch (action.type) {
-		case IS_LOADED:
-			return {
-				...state,
-				isLoaded: true,
-			};
 		case GET_LEADS:
 			return {
 				...state,
@@ -22,6 +19,16 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				isLeadCreated: action.payload,
+			};
+		case ENABLE_FORM:
+			return {
+				...state,
+				isFormEnabled: action.payload,
+			};
+		case EDIT_LEAD:
+			return {
+				...state,
+				isLeadUpdated: action.payload,
 			};
 		default:
 			return state;

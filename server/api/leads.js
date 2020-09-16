@@ -3,7 +3,9 @@ const Lead = require("../db/leads");
 
 router.get("/getLeads", async (req, res) => {
 	try {
-		const allLeads = await Lead.findAll();
+		const allLeads = await Lead.findAll({
+			order: [["id", "ASC"]],
+		});
 		res.json(allLeads);
 	} catch (err) {
 		console.error(err);
@@ -24,18 +26,18 @@ router.post("/createLead", async (req, res) => {
 	}
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/updateLead/:id", async (req, res) => {
 	try {
-		const existingLead = await Lead.findById({
-			where: {
-				id: req.params.id,
-			},
-		});
+		const existingLead = await Lead.findByPk(req.params.id);
 
 		if (existingLead) {
-			const updatedLead = await Lead.update(req.body);
+			const updatedLead = await Lead.update(req.body, {
+				where: {
+					id: req.params.id,
+				},
+			});
 
-			if (updatedLead.id) {
+			if (updatedLead.length) {
 				res.json({
 					isSuccess: true,
 				});

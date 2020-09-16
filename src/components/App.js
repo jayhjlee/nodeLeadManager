@@ -5,8 +5,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { store } from "../store";
 
-import Home from "./Home";
+import Leads from "./Leads";
 import CreateLead from "./CreateLead";
+import ViewLead from "./ViewLead";
 import Nav from "./Nav";
 
 class App extends Component {
@@ -17,12 +18,9 @@ class App extends Component {
 					<Router>
 						<Nav />
 						<Switch>
-							<Route exact path="/">
-								<Home />
-							</Route>
-							<Route path="/create-lead">
-								<CreateLead />
-							</Route>
+							<Route exact path="/" component={Leads} />
+							<Route path="/create-lead" component={CreateLead} />
+							<Route path="/lead/:id" component={ViewLead} />
 						</Switch>
 					</Router>
 				</Provider>
