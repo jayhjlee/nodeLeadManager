@@ -1,8 +1,9 @@
-import { IS_LOADED, GET_LEADS, OPEN_LEAD_FORM } from "../types/home";
+import { IS_LOADED, GET_LEADS, CREATE_LEAD } from "../types/home";
 
 const initialState = {
 	isLoaded: false,
 	leads: [],
+	isLeadCreated: false,
 };
 
 export default function (state = initialState, action) {
@@ -16,6 +17,11 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				leads: action.payload,
+			};
+		case CREATE_LEAD:
+			return {
+				...state,
+				isLeadCreated: action.payload,
 			};
 		default:
 			return state;
