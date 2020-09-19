@@ -36,7 +36,7 @@ export class Leads extends Component {
 					<tbody>
 						{leads.map((lead, index) => (
 							<tr key={`${index}-${lead.id}`}>
-								<td>{lead.id}</td>
+								<td>{index + 1}</td>
 								<td>{lead.firstName}</td>
 								<td>{lead.lastName}</td>
 								<td>{lead.email}</td>

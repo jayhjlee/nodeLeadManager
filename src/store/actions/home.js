@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from "moment";
 import {
 	GET_LEADS,
 	CREATE_LEAD,
@@ -12,7 +13,10 @@ export const init = () => async dispatch => {
 		const res = await axios.get("/api/lead/getLeads");
 		const { data } = res;
 
+		data.map(lead => (lead.createdAt = moment().format("MM/DD/YYYY")));
+
 		dispatch({ type: GET_LEADS, payload: data });
+		dispatch({ type: CREATE_LEAD, payload: false });
 		dispatch({ type: ENABLE_FORM, payload: false });
 		dispatch({ type: EDIT_LEAD, payload: false });
 	} catch (err) {

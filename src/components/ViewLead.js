@@ -131,6 +131,7 @@ class ViewLead extends Component {
 									<button
 										className="btn btn-primary btn-block"
 										type="submit"
+										disabled={!isFormEnabled || false}
 										onClick={this.updateLead.bind(this)}>
 										Update Lead
 									</button>
