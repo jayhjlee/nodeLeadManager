@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Nav(props) {
+export default function Nav({ isLoggedIn }) {
 	return (
 		<div>
 			<nav className="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
@@ -12,13 +12,15 @@ export default function Nav(props) {
 				</div>
 
 				<div id="navbarColor03">
-					<form className="form-inline my-2 my-lg-0">
-						<button className="btn btn-success my-2 my-sm-0 mx-2 mx-sm-2">
-							<Link to="/create-lead" style={{ color: "white" }}>
-								Create New Lead
-							</Link>
-						</button>
-					</form>
+					{isLoggedIn ? (
+						<form className="form-inline my-2 my-lg-0">
+							<button className="btn btn-success my-2 my-sm-0 mx-2 mx-sm-2">
+								<Link to="/create-lead" style={{ color: "white" }}>
+									Create New Lead
+								</Link>
+							</button>
+						</form>
+					) : null}
 				</div>
 			</nav>
 		</div>
