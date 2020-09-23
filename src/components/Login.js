@@ -9,24 +9,21 @@ class Login extends Component {
 				<div className="card-body">
 					<form>
 						<div className="form-group">
-							<label htmlFor="exampleInputEmail1">Email address</label>
+							<label htmlFor="username">Username</label>
 							<input
-								type="email"
+								type="text"
 								className="form-control"
-								id="exampleInputEmail1"
-								aria-describedby="emailHelp"
-								placeholder="Enter email"
+								id="username"
+								aria-describedby="username"
+								placeholder="Enter username"
 							/>
-							<small id="emailHelp" className="form-text text-muted">
-								We'll never share your email with anyone else.
-							</small>
 						</div>
 						<div className="form-group">
-							<label htmlFor="exampleInputPassword1">Password</label>
+							<label htmlFor="password">Password</label>
 							<input
 								type="password"
 								className="form-control"
-								id="exampleInputPassword1"
+								id="password"
 								placeholder="Password"
 							/>
 						</div>

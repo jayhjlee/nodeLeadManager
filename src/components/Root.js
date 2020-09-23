@@ -7,6 +7,7 @@ import CreateLead from "./CreateLead";
 import ViewLead from "./ViewLead";
 import Nav from "./Nav";
 import Login from "./Login";
+import SignUp from "./SignUp";
 
 class Root extends Component {
 	render() {
@@ -16,6 +17,7 @@ class Root extends Component {
 				<Switch>
 					<Route exact path="/" component={Home} />
 					<Route path="/log-in" component={Login} />
+					<Route path="/sign-up" component={SignUp} />
 					<Route path="/create-lead" component={CreateLead} />
 					<Route path="/lead/:id" component={ViewLead} />
 				</Switch>

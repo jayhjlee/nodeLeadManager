@@ -1,5 +1,8 @@
+const bcrypt = require("bcrypt");
 const router = require("express").Router();
 const User = require("../db/users");
+
+const saltRounds = 10;
 
 router.get("/getUsers", async (req, res) => {
 	try {
@@ -12,11 +15,27 @@ router.get("/getUsers", async (req, res) => {
 
 router.post("/register", async (req, res) => {
 	try {
+		const { password } = req.body;
 		const newUser = await User.create(req.body);
 
 		if (newUser.id) {
-			res.json({
-				isSuccess: true,
+			bcrypt.hash(password, saltRounds, async (err, hash) => {
+				const hashedPassword = { password: hash };
+				const createdUser = await User.findByPk(newUser.id);
+
+				if (createdUser.id === newUser.id) {
+					const userWithHash = await User.update(hashedPassword, {
+						where: {
+							id: createdUser.id,
+						},
+					});
+
+					if (userWithHash.length) {
+						res.json({
+							isSuccess: true,
+						});
+					}
+				}
 			});
 		}
 	} catch (err) {

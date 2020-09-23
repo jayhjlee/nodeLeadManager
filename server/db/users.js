@@ -14,16 +14,13 @@ const User = db.define("users", {
 		type: Sequelize.STRING,
 		allowNull: false,
 	},
-	age: {
-		type: Sequelize.INTEGER,
-	},
 	username: {
 		type: Sequelize.STRING,
 		allowNull: false,
 	},
 	password: {
 		type: Sequelize.STRING,
-		allowNull: false,
+		allowNull: true,
 	},
 });
 
