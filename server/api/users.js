@@ -43,4 +43,25 @@ router.post("/register", async (req, res) => {
 	}
 });
 
+router.post("/login", async (req, res) => {
+	try {
+		const { username, password } = req.body;
+		const existingUser = await User.findOne({
+			where: {
+				username: username,
+			},
+		});
+
+		if (existingUser.id) {
+			const hashedPassword = existingUser.password;
+
+			bcrypt.compare(password, hashedPassword, (err, result) => {
+				res.json({ isSuccess: result });
+			});
+		}
+	} catch (err) {
+		console.error(err);
+	}
+});
+
 module.exports = router;

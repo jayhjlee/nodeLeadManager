@@ -12,7 +12,6 @@ const initialState = {
 	isLeadCreated: false,
 	isLeadUpdated: false,
 	isFormEnabled: false,
-	isLoggedIn: false,
 };
 
 export default function (state = initialState, action) {

@@ -27,7 +27,7 @@ class Root extends Component {
 }
 
 const mapStateToProps = state => ({
-	isLoggedIn: state.home.isLoggedIn,
+	isLoggedIn: state.user.isLoggedIn,
 });
 
 export default connect(mapStateToProps, null)(Root);

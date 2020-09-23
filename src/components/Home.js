@@ -12,6 +12,6 @@ class Home extends Component {
 	}
 }
 
-const mapStateToProps = state => ({ isLoggedIn: state.home.isLoggedIn });
+const mapStateToProps = state => ({ isLoggedIn: state.user.isLoggedIn });
 
 export default connect(mapStateToProps, null)(Home);
