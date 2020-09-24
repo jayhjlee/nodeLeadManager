@@ -27,11 +27,12 @@ class Login extends Component {
 		this.props.logInUser(this.state);
 	}
 	render() {
-		const { isLoggedIn } = this.props;
+		const { token } = this.props;
 
-		if (isLoggedIn) return <Redirect to="/" />;
+		if (token) return <Redirect to="/" />;
 
 		const { username, password } = this.state;
+
 		return (
 			<div className="card mt-3 mx-auto mt-5" style={{ width: "25rem" }}>
 				<div className="card-body">
@@ -79,6 +80,7 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
 	isLoggedIn: state.user.isLoggedIn,
+	token: state.user.token,
 });
 
 const mapDispatchToProps = dispatch => ({

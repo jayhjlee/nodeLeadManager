@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { CREATE_USER, LOGIN_USER } from "../types/user";
+import { CREATE_USER, LOGIN_USER, VALIDATE_USER } from "../types/user";
 
 export const createUser = userInfo => async dispatch => {
 	try {
@@ -18,7 +18,30 @@ export const logInUser = credential => async dispatch => {
 		const res = await axios.post("/api/user/login", credential);
 		const { data } = res;
 
-		dispatch({ type: LOGIN_USER, payload: data.isSuccess });
+		localStorage.setItem("isLoggedIn", data.isSuccess);
+		localStorage.setItem("token", data.token);
+
+		dispatch({ type: LOGIN_USER, payload: data });
+	} catch (err) {
+		console.error(err);
+	}
+};
+
+export const validateUser = () => async dispatch => {
+	try {
+		const token = localStorage.getItem("token");
+		const body = { token };
+
+		console.log(token);
+
+		if (token) {
+			const res = await axios.post("/api/user/auth", body);
+			const { data } = res;
+
+			console.log(data.authData);
+
+			dispatch({ type: VALIDATE_USER, payload: data });
+		}
 	} catch (err) {
 		console.error(err);
 	}

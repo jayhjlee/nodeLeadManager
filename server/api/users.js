@@ -1,4 +1,6 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const jwtDecode = require("jwt-decode");
 const router = require("express").Router();
 const User = require("../db/users");
 
@@ -11,6 +13,27 @@ router.get("/getUsers", async (req, res) => {
 	} catch (err) {
 		console.error(err);
 	}
+});
+
+router.post("/auth", async (req, res) => {
+	try {
+		const { token } = req.body;
+		const decode = jwtDecode(token);
+
+		const { email } = decode;
+
+		jwt.verify(token, email, (err, authData) => {
+			if (err) {
+				res.sendStatus(403);
+			} else {
+				res.json({
+					isLoggedIn: true,
+					authData,
+					token,
+				});
+			}
+		});
+	} catch (err) {}
 });
 
 router.post("/register", async (req, res) => {
@@ -52,11 +75,16 @@ router.post("/login", async (req, res) => {
 			},
 		});
 
+		const { email } = existingUser;
+		const payload = { username, email, timeStamp: Date.now() };
+
 		if (existingUser.id) {
 			const hashedPassword = existingUser.password;
 
 			bcrypt.compare(password, hashedPassword, (err, result) => {
-				res.json({ isSuccess: result });
+				const token = jwt.sign(payload, email, { expiresIn: 60 * 60 });
+
+				res.json({ isSuccess: result, token });
 			});
 		}
 	} catch (err) {

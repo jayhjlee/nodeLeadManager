@@ -2,16 +2,30 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
+import { validateUser } from "../store/actions/user";
+
 import Leads from "./Leads";
+// import Login from "./Login";
 
 class Home extends Component {
-	render() {
-		const { isLoggedIn } = this.props;
+	UNSAFE_componentWillMount() {
+		this.props.validateUser();
+	}
 
-		return isLoggedIn ? <Leads /> : <Redirect to="log-in" />;
+	render() {
+		const { isLoggedIn, token } = this.props;
+
+		return isLoggedIn && token ? <Leads /> : <Redirect to="/log-in" />;
 	}
 }
 
-const mapStateToProps = state => ({ isLoggedIn: state.user.isLoggedIn });
+const mapStateToProps = state => ({
+	isLoggedIn: state.user.isLoggedIn,
+	token: state.user.token,
+});
 
-export default connect(mapStateToProps, null)(Home);
+const mapDispatchToProps = dispatch => ({
+	validateUser: () => dispatch(validateUser()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
