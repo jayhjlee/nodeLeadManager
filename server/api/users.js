@@ -27,7 +27,7 @@ router.post("/auth", async (req, res) => {
 				res.sendStatus(403);
 			} else {
 				res.json({
-					isLoggedIn: true,
+					isSuccess: true,
 					authData,
 					token,
 				});

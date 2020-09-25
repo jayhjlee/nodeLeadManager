@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { logInUser, validateUser } from "../store/actions/user";
+import { logInUser, validateUser, logout } from "../store/actions/user";
 
 import Home from "./Home";
 import CreateLead from "./CreateLead";
@@ -24,7 +24,10 @@ class Root extends Component {
 					<Route exact path="/" render={() => <Home {...this.props} />} />
 					<Route path="/log-in" render={() => <Login {...this.props} />} />
 					<Route path="/sign-up" component={SignUp} />
-					<Route path="/create-lead" component={CreateLead} />
+					<Route
+						path="/create-lead"
+						render={() => <CreateLead {...this.props} />}
+					/>
 					<Route path="/lead/:id" component={ViewLead} />
 				</Switch>
 			</Router>
@@ -40,6 +43,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	validateUser: () => dispatch(validateUser()),
 	logInUser: credential => dispatch(logInUser(credential)),
+	logout: () => dispatch(logout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);

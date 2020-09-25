@@ -1,6 +1,11 @@
 import axios from "axios";
 
-import { CREATE_USER, LOGIN_USER, VALIDATE_USER } from "../types/user";
+import {
+	CREATE_USER,
+	LOGIN_USER,
+	VALIDATE_USER,
+	LOGOUT_USER,
+} from "../types/user";
 
 export const createUser = userInfo => async dispatch => {
 	try {
@@ -41,4 +46,14 @@ export const validateUser = () => async dispatch => {
 	} catch (err) {
 		console.error(err);
 	}
+};
+
+export const logout = () => async dispatch => {
+	try {
+		localStorage.removeItem("isLoggedIn");
+		localStorage.removeItem("token");
+
+		const data = { token: "", isSuccess: false };
+		dispatch({ type: LOGOUT_USER, payload: data });
+	} catch (err) {}
 };

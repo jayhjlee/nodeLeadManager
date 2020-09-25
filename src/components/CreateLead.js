@@ -29,7 +29,9 @@ export class CreateLead extends Component {
 
 	render() {
 		const { firstName, lastName, email, message } = this.state;
-		const { leadCreated } = this.props;
+		const { leadCreated, isLoggedIn, token } = this.props;
+
+		if (!isLoggedIn && !token) return <Redirect to="/log-in" />;
 
 		return leadCreated ? (
 			<Redirect to="/" />

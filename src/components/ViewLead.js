@@ -49,8 +49,9 @@ class ViewLead extends Component {
 
 	render() {
 		const { firstName, lastName, email, content } = this.state;
-		const { isFormEnabled, isLeadUpdated } = this.props;
+		const { isFormEnabled, isLeadUpdated, isLoggedIn, token } = this.props;
 
+		// if (!isLoggedIn && !token) return <Redirect to="/log-in" />;
 		return isLeadUpdated ? (
 			<Redirect to="/" />
 		) : (
