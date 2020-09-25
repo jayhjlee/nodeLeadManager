@@ -13,7 +13,9 @@ export const init = () => async dispatch => {
 		const res = await axios.get("/api/lead/getLeads");
 		const { data } = res;
 
-		data.map(lead => (lead.createdAt = moment().format("MM/DD/YYYY")));
+		data.map(
+			lead => (lead.createdAt = moment(lead.createdAt).format("MM/DD/YYYY"))
+		);
 
 		dispatch({ type: GET_LEADS, payload: data });
 		dispatch({ type: CREATE_LEAD, payload: false });

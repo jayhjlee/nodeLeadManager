@@ -1,90 +1,62 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 
-import { logInUser } from "../store/actions/user";
+export default function Login(props) {
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
 
-class Login extends Component {
-	constructor(props) {
-		super(props);
+	const { logInUser, isLoggedIn, token } = props;
 
-		this.state = {
-			username: "",
-			password: "",
-		};
-	}
-
-	handleChange(e) {
-		const { value } = e.target;
-		this.setState({
-			[e.target.name]: value,
-		});
-	}
-
-	handleSubmit(e) {
+	const login = e => {
 		e.preventDefault();
 
-		this.props.logInUser(this.state);
-	}
-	render() {
-		const { token } = this.props;
+		const credential = { username, password };
 
-		if (token) return <Redirect to="/" />;
+		logInUser(credential);
+	};
 
-		const { username, password } = this.state;
+	if (isLoggedIn && token) return <Redirect to="/" />;
 
-		return (
-			<div className="card mt-3 mx-auto mt-5" style={{ width: "25rem" }}>
-				<div className="card-body">
-					<form>
-						<div className="form-group">
-							<label htmlFor="username">Username</label>
-							<input
-								type="text"
-								className="form-control"
-								id="username"
-								name="username"
-								value={username}
-								aria-describedby="username"
-								placeholder="Enter Username"
-								onChange={this.handleChange.bind(this)}
-							/>
-						</div>
-						<div className="form-group">
-							<label htmlFor="password">Password</label>
-							<input
-								type="password"
-								className="form-control"
-								id="password"
-								name="password"
-								value={password}
-								placeholder="Enter Password"
-								onChange={this.handleChange.bind(this)}
-							/>
-						</div>
-						<button
-							type="submit"
-							className="btn btn-primary btn-block"
-							onClick={this.handleSubmit.bind(this)}>
-							Log In
-						</button>
-					</form>
-					<div className="mt-3" style={{ textAlign: "center" }}>
-						<Link to="/sign-up">Create an account</Link>
+	return (
+		<div className="card mt-3 mx-auto mt-5" style={{ width: "25rem" }}>
+			<div className="card-body">
+				<form>
+					<div className="form-group">
+						<label htmlFor="username">Username</label>
+						<input
+							type="text"
+							className="form-control"
+							id="username"
+							name="username"
+							value={username}
+							aria-describedby="username"
+							placeholder="Enter Username"
+							onChange={e => setUsername(e.target.value)}
+						/>
 					</div>
+					<div className="form-group">
+						<label htmlFor="password">Password</label>
+						<input
+							type="password"
+							className="form-control"
+							id="password"
+							name="password"
+							value={password}
+							placeholder="Enter Password"
+							onChange={e => setPassword(e.target.value)}
+						/>
+					</div>
+					<button
+						type="submit"
+						className="btn btn-primary btn-block"
+						onClick={e => login(e)}>
+						Log In
+					</button>
+				</form>
+				<div className="mt-3" style={{ textAlign: "center" }}>
+					<Link to="/sign-up">Create an account</Link>
 				</div>
 			</div>
-		);
-	}
+		</div>
+	);
 }
-
-const mapStateToProps = state => ({
-	isLoggedIn: state.user.isLoggedIn,
-	token: state.user.token,
-});
-
-const mapDispatchToProps = dispatch => ({
-	logInUser: credential => dispatch(logInUser(credential)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);

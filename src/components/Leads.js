@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { init, deleteLead } from "../store/actions/home";
 
-export class Leads extends Component {
+class Leads extends Component {
 	componentDidMount() {
 		this.props.init();
 	}

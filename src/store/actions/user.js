@@ -32,13 +32,9 @@ export const validateUser = () => async dispatch => {
 		const token = localStorage.getItem("token");
 		const body = { token };
 
-		console.log(token);
-
 		if (token) {
 			const res = await axios.post("/api/user/auth", body);
 			const { data } = res;
-
-			console.log(data.authData);
 
 			dispatch({ type: VALIDATE_USER, payload: data });
 		}
